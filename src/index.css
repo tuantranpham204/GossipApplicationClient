@@ -1,11 +1,18 @@
+@import "tailwindcss";
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.9);
+  background-color: #000000;
+
+  --primary-color: #d946ef; /* Fuchsia-like matching a gossip vibe */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 10px;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,26 +20,48 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
   display: flex;
   place-items: center;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #000000;
+  background-image:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(217, 70, 239, 0.15),
+      transparent 25%
+    ),
+    radial-gradient(circle at 0% 50%, rgba(217, 70, 239, 0.05), transparent 20%);
+}
+
+#root {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  background: linear-gradient(to right, #fff, var(--primary-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 button {
@@ -47,22 +76,9 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--primary-color);
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
