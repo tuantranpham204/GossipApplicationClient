@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gossip - Sign Up</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        gossip: {
+                            purple: '#9333ea',
+                            pink: '#db2777',
+                            light: '#fdf4ff',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .hero-pattern {
+            background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 50%, rgba(0,0,0,0.6)), url('download.png');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="h-screen w-full flex bg-white text-slate-800 antialiased overflow-hidden">
+
+    <div class="hidden md:flex md:w-5/12 lg:w-5/12 relative bg-slate-900 text-white flex-col justify-between p-12 hero-pattern shadow-2xl z-20 h-full">
+        
+        <div class="relative z-10">
+            <p class="uppercase tracking-[0.2em] text-xs font-semibold opacity-80 mb-2">Exclusive Access</p>
+            <h2 class="font-serif text-3xl italic leading-snug">"The truth is rarely pure<br>and never simple."</h2>
+        </div>
+
+        <div class="relative z-10 flex items-center gap-4 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/10 w-max hover:bg-white/20 transition-all cursor-pointer">
+            <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-gossip-purple to-gossip-pink p-[2px]">
+                <img src="https://ui-avatars.com/api/?name=Andrew+Ui&background=0D8ABC&color=fff" alt="User" class="h-full w-full rounded-full object-cover border-2 border-slate-900">
+            </div>
+            <div>
+                <p class="text-sm font-bold text-white">Featured Insider</p>
+                <p class="text-xs text-slate-300">@Andrew.ui • Top Contributor</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full md:w-7/12 lg:w-7/12 relative h-full flex flex-col justify-center items-center">
+        
+        <div class="absolute top-0 left-0 w-full flex justify-between items-center p-8 z-30">
+            <a href="#" class="group flex items-center gap-2">
+                <img src="logo.png" alt="Gossip Logo" class="h-12 w-auto drop-shadow-md group-hover:scale-105 transition-transform">
+            </a>
+            
+            <button class="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-slate-400">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S12 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S12 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m-15.686 0A8.959 8.959 0 013 12c0-.778.099-1.533.284-2.253m0 0A11.953 11.953 0 0112 10.5c.71 0 1.396.062 2.062.18M12 10.5a11.952 11.952 0 00-12 5.5v.005l.004.005" />
+                </svg>
+                <span>English (US)</span>
+            </button>
+        </div>
+
+        <div class="w-full max-w-2xl px-12 relative z-10 pt-10">
+            
+            <div class="mb-6 text-center md:text-left">
+                <h1 class="font-serif text-4xl font-bold text-slate-900 mb-1 tracking-tight">Join the Circle.</h1>
+                <p class="text-slate-600 text-sm font-medium">Create your account to start listening.</p>
+            </div>
+
+            <form class="space-y-4">
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label for="first_name" class="text-xs font-bold text-slate-700 ml-1">First Name</label>
+                        <input type="text" id="first_name" placeholder="Jane" 
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-gossip-purple focus:ring-4 focus:ring-gossip-purple/10 outline-none transition-all placeholder:text-slate-400 bg-slate-50 hover:bg-white text-sm">
+                    </div>
+                    <div class="space-y-1">
+                        <label for="last_name" class="text-xs font-bold text-slate-700 ml-1">Last Name</label>
+                        <input type="text" id="last_name" placeholder="Doe" 
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-gossip-purple focus:ring-4 focus:ring-gossip-purple/10 outline-none transition-all placeholder:text-slate-400 bg-slate-50 hover:bg-white text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label for="dob" class="text-xs font-bold text-slate-700 ml-1">Date of Birth</label>
+                        <input type="date" id="dob" 
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-gossip-purple focus:ring-4 focus:ring-gossip-purple/10 outline-none transition-all text-slate-600 bg-slate-50 hover:bg-white text-sm">
+                    </div>
+                    <div class="space-y-1">
+                        <label for="gender" class="text-xs font-bold text-slate-700 ml-1">Gender</label>
+                        <div class="relative">
+                            <select id="gender" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-gossip-purple focus:ring-4 focus:ring-gossip-purple/10 outline-none transition-all text-slate-600 bg-slate-50 hover:bg-white appearance-none cursor-pointer text-sm">
+                                <option value="" disabled selected>Select...</option>
+                                <option value="1">Female</option>
+                                <option value="0">Male</option>
+                                <option value="2">Other</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label for="username" class="text-xs font-bold text-slate-700 ml-1">Username</label>
+                        <input type="text" id="username" placeholder="@gossip_queen" 
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-gossip-purple focus:ring-4 focus:ring-gossip-purple/10 outline-none transition-all placeholder:text-slate-400 bg-slate-50 hover:bg-white text-sm">
+                    </div>
+                    <div class="space-y-1">
+                        <label for="email" class="text-xs font-bold text-slate-700 ml-1">Email</label>
+                        <input type="email" id="email" placeholder="you@example.com" 
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-gossip-purple focus:ring-4 focus:ring-gossip-purple/10 outline-none transition-all placeholder:text-slate-400 bg-slate-50 hover:bg-white text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label for="password" class="text-xs font-bold text-slate-700 ml-1">Password</label>
+                        <input type="password" id="password" placeholder="Create pass" 
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-gossip-purple focus:ring-4 focus:ring-gossip-purple/10 outline-none transition-all placeholder:text-slate-400 bg-slate-50 hover:bg-white text-sm">
+                    </div>
+                    <div class="space-y-1">
+                        <label for="password_confirmation" class="text-xs font-bold text-slate-700 ml-1">Confirm</label>
+                        <input type="password" id="password_confirmation" placeholder="Repeat pass" 
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-gossip-purple focus:ring-4 focus:ring-gossip-purple/10 outline-none transition-all placeholder:text-slate-400 bg-slate-50 hover:bg-white text-sm">
+                    </div>
+                </div>
+
+                <button type="button" class="group relative w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl text-sm font-bold text-white bg-gradient-to-r from-gossip-purple to-gossip-pink hover:from-purple-700 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gossip-purple shadow-lg shadow-gossip-purple/30 transform transition-all duration-200 hover:-translate-y-0.5 mt-2">
+                    Create Account
+                </button>
+
+                <div class="text-center mt-2">
+                    <p class="text-xs text-slate-600">
+                        Already have an account? 
+                        <a href="index.html" class="font-bold text-gossip-purple hover:text-gossip-pink transition-colors">Sign In</a>
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>
