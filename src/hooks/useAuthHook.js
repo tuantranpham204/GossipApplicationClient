@@ -10,7 +10,7 @@ import { useUIStore } from '../store/useUiStore';
  * @param {object} credentials - { username, password }
  */
 const login = (credentials) => {
-  return handleApiResponse(apiClient.post('/auth/login', credentials));
+  return handleApiResponse(apiClient.post('/users/sign_in', credentials));
 };
 
 /**

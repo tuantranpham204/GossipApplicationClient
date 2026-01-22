@@ -1,18 +1,20 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
 :root {
-  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: dark;
-  color: rgba(255, 255, 255, 0.9);
-  background-color: #000000;
+  color-scheme: light;
+  color: #1f2937;
+  background-color: #ffffff;
 
-  --primary-color: #d946ef; /* Fuchsia-like matching a gossip vibe */
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-blur: 10px;
+  --gossip-purple: #9333ea;
+  --gossip-pink: #db2777;
+  --gossip-light: #fdf4ff;
+  --primary-color: #9333ea;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -20,65 +22,72 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  justify-content: center;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
   min-width: 320px;
-  min-height: 100vh;
-  background-color: #000000;
-  background-image:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(217, 70, 239, 0.15),
-      transparent 25%
-    ),
-    radial-gradient(circle at 0% 50%, rgba(217, 70, 239, 0.05), transparent 20%);
+  background-color: #ffffff;
+  color: #1f2937;
+  font-family: "Inter", system-ui, sans-serif;
+  overflow: hidden;
 }
 
 #root {
   width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
 }
+
 
 /* Glassmorphism Utilities */
 .glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+}
+
+.hero-pattern {
+  background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 50%, rgba(0,0,0,0.6));
+  background-size: cover;
+  background-position: center;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2.5em;
   line-height: 1.1;
-  background: linear-gradient(to right, #fff, var(--primary-color));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #1f2937;
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  color: #1f2937;
 }
 
 button {
-  border-radius: 8px;
+  border-radius: 12px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: transparent;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.25s ease;
 }
+
 button:hover {
-  border-color: var(--primary-color);
+  transform: translateY(-2px);
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+

@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 
 // Base URL from the API documentation
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_SERVER_URL,
+  baseURL: `${import.meta.env.VITE_API_SERVER_URL}${import.meta.env.VITE_API_V1_SERVER}`,
 });
 
 // --- Request Interceptor ---
@@ -32,15 +32,15 @@ apiClient.interceptors.response.use(
     return response;
   },
   (error) => {
+    const isAuthEndpoint = error.config?.url?.includes('/sign_in') || error.config?.url?.includes('/sign_up');
+    
     if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-      console.error("Authentication Error: Logging out user.");
-      // Call the logout action from our Zustand store
-      useAuthStore.getState().logout();
+      // Don't logout if it's a login/signup endpoint - those are expected to fail with 401
+      if (!isAuthEndpoint) {
+        console.error("Authentication Error: Logging out user.");
+        useAuthStore.getState().logout();
+      }
     }
-
-    // Global Error Toast for HTTP errors
-    const errorMessage = error.response?.data?.message || error.message || "A network error occurred.";
-    toast.error(errorMessage);
 
     return Promise.reject(error);
   }
@@ -55,7 +55,7 @@ apiClient.interceptors.response.use(
  */
 export const handleApiResponse = async (request) => {
   try {
-    const response = await request;
+    const response =  await request;
     let apiResponse = response.data;
 
     // Handle stringified JSON (often happens with circular refs or wrong Content-Type)
