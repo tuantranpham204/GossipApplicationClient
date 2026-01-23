@@ -7,8 +7,8 @@ const LanguageSwitcher = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const languages = [
-    { code: 'en', name: 'English (US)', flag: '🇺🇸' },
-    { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' }
+    { code: 'en', name: 'English (US)', short: 'US', flag: '🇺🇸' },
+    { code: 'vi', name: 'Tiếng Việt', short: 'VI', flag: '🇻🇳' }
   ];
 
   const currentLang = languages.find(lang => lang.code === i18n.language);
@@ -20,65 +20,53 @@ const LanguageSwitcher = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
       <motion.button
-        onClick={() => setIsOpen(!isOpen)}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="flex items-center gap-2 px-6 py-3 rounded-full border border-slate-200 bg-white text-base font-medium text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200 bg-white/80 backdrop-blur-sm text-sm font-bold text-slate-600 hover:text-purple-600 hover:border-purple-200 transition-all shadow-sm h-10"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 text-slate-400">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S12 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S12 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m-15.686 0A8.959 8.959 0 013 12c0-.778.099-1.533.284-2.253m0 0A11.953 11.953 0 0112 10.5c.71 0 1.396.062 2.062.18M12 10.5a11.952 11.952 0 00-12 5.5v.005l.004.005" />
-        </svg>
-        <span>{currentLang?.name}</span>
-        <motion.svg 
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3 }}
-          xmlns="http://www.w3.org/2000/svg" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          strokeWidth="1.5" 
-          stroke="currentColor" 
-          className="w-4 h-4 ml-1 text-slate-400"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-        </motion.svg>
+        <span className="text-xs font-black tracking-widest">{currentLang?.short}</span>
+        
+        <AnimatePresence>
+            {isOpen && (
+                <motion.span
+                    initial={{ width: 0, opacity: 0, marginLeft: 0 }}
+                    animate={{ width: "auto", opacity: 1, marginLeft: 6 }}
+                    exit={{ width: 0, opacity: 0, marginLeft: 0 }}
+                    className="overflow-hidden whitespace-nowrap text-xs font-semibold text-slate-500 border-l border-slate-300 pl-2"
+                >
+                    {currentLang?.name}
+                </motion.span>
+            )}
+        </AnimatePresence>
       </motion.button>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            exit={{ opacity: 0, y: 5 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full right-0 mt-2 bg-white border border-slate-200 rounded-lg shadow-lg overflow-hidden z-50"
+            className="absolute top-full right-0 mt-2 min-w-[140px] bg-white border border-slate-100 rounded-xl shadow-xl shadow-slate-200/50 p-1.5 overflow-hidden z-50 flex flex-col gap-1"
           >
             {languages.map((lang) => (
               <motion.button
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
-                whileHover={{ backgroundColor: '#f1f5f9' }}
-                className={`w-full px-4 py-2 text-left text-sm font-medium transition-colors flex items-center gap-2 ${
-                  i18n.language === lang.code
-                    ? 'bg-purple-50 text-purple-600'
-                    : 'text-slate-700 hover:bg-slate-50'
+                className={`w-full px-3 py-2 text-left text-xs font-bold rounded-lg transition-all flex items-center justify-between group ${
+                    i18n.language === lang.code 
+                    ? 'bg-purple-50 text-purple-600' 
+                    : 'text-slate-500 hover:text-purple-600 hover:bg-slate-50'
                 }`}
               >
-                <span>{lang.flag}</span>
-                <span>{lang.name}</span>
+                <div className="flex items-center gap-3">
+                    <span className="font-black text-[10px] uppercase tracking-wider opacity-70">{lang.short}</span>
+                    <span>{lang.name}</span>
+                </div>
                 {i18n.language === lang.code && (
-                  <motion.svg
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    exit={{ scale: 0 }}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    className="w-4 h-4 ml-auto text-purple-600"
-                  >
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </motion.svg>
+                    <motion.div layoutId="activeLang" className="w-1.5 h-1.5 rounded-full bg-purple-600" />
                 )}
               </motion.button>
             ))}

@@ -4,6 +4,7 @@ import SignUpPage from './pages/auth/SignUpPage';
 import SignInPage from './pages/auth/SignInPage';
 import ActivationInstructionsPage from './pages/auth/ActivationInstructionsPage';
 import ActivationStatusPage from './pages/auth/ActivationStatusPage';
+import HomePage from './pages/HomePage';
 import './App.css'
 
 function App() {
@@ -16,8 +17,7 @@ function App() {
         <Route path="/activation-instructions" element={<ActivationInstructionsPage />} />
         <Route path="/activation-status" element={<ActivationStatusPage />} />
         
-        {/* Redirect root to sign-in for now, or dashboard if we had one */}
-        <Route path="/" element={<Navigate to="/sign-in" replace />} />
+        <Route path="/" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
   )

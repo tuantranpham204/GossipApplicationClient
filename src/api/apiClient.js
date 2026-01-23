@@ -13,7 +13,7 @@ apiClient.interceptors.request.use(
   (config) => {
     const { accessToken } = useAuthStore.getState();
     if (accessToken) {
-      config.headers['Authorization'] = `Bearer ${accessToken}`;
+      config.headers['Authorization'] = accessToken;
     }
     return config;
   },
@@ -55,7 +55,7 @@ apiClient.interceptors.response.use(
  */
 export const handleApiResponse = async (request) => {
   try {
-    const response =  await request;
+    const response = await request;
     let apiResponse = response.data;
 
     // Handle stringified JSON (often happens with circular refs or wrong Content-Type)
@@ -65,20 +65,60 @@ export const handleApiResponse = async (request) => {
       } catch (e) {
         console.error("Failed to parse API response string: ", apiResponse);
         toast.error(`Failed to parse API response string: ${e.message}`);
+        throw e;
       }
     }
 
     // Successful code 200: Return data if present, otherwise true
-    if (apiResponse && apiResponse.code == 200) {
+    if (apiResponse && apiResponse.code === 200) {
       return apiResponse.data !== undefined ? apiResponse.data : true;
-    } else {
-      const msg = apiResponse?.message || 'An API error occurred.';
-      console.error(`[API ERROR ${apiResponse?.code}]`, apiResponse);
+    } 
+    
+    // Error Handling for non-200 codes
+    const msg = apiResponse?.message || 'An API error occurred.';
+    const code = apiResponse?.code;
+
+    console.error(`[API ERROR ${code}]`, apiResponse);
+
+    if (code === 422) {
+      toast.warning(msg);
+    } else if (code === 401) {
       toast.error(msg);
-      throw new Error(msg);
+      useAuthStore.getState().logout(); 
+    } else {
+      toast.error(msg);
     }
+
+    throw new Error(msg);
+
   } catch (error) {
-    console.error('[NETWORK/GATEWAY ERROR]', error.response?.data || error.message);
+    // Check if it's already an error we threw above
+    if (error.message && error.message !== 'An API error occurred.' && !error.response) {
+       // It's likely our own error
+       throw error;
+    }
+
+    // Handle Axios/Network Errors
+    if (error.response) {
+       const data = error.response.data;
+       const status = error.response.status;
+       const msg = data?.message || error.message || 'Network Error';
+       
+       if (status === 422) {
+          toast.warning(msg);
+       } else if (status === 401) {
+          toast.error(msg);
+       } else {
+          toast.error(msg);
+       }
+    } else if (error.request) {
+        // Request was made but no response received
+        toast.error('Network Error: Please check your connection.');
+    } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('Error', error.message);
+    }
+    
     throw error;
   }
 };

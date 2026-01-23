@@ -31,7 +31,7 @@ const HeroSidebar = () => {
       <div className="relative z-10 flex items-center gap-4 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/10 w-max hover:bg-white/20 transition-all cursor-pointer">
         <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 p-0.5">
           <img 
-            src="https://ui-avatars.com/api/?name=Andrew+Ui&background=0D8ABC&color=fff" 
+            src="../src/assets/defaultAvatar.jpg"
             alt="Featured Insider" 
             className="h-full w-full rounded-full object-cover"
           />

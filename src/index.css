@@ -2,6 +2,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Edu+SA+Hand:wght@400..700&display=swap');
+
 :root {
   font-family: "Inter", system-ui, sans-serif;
   line-height: 1.5;
@@ -15,6 +17,7 @@
   --gossip-pink: #db2777;
   --gossip-light: #fdf4ff;
   --primary-color: #9333ea;
+  --font-brand: "Edu SA Hand", system-ui ,sans-serif;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -89,5 +92,9 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.font-brand {
+  font-family: var(--font-brand);
 }
 

@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import apiClient, { handleApiResponse } from '../api/apiClient';
 import { useAuthStore } from '../store/useAuthStore';
-
+import { ROLES } from '../utils/enum' 
 // --- API Functions ---
 
 /**
@@ -27,6 +27,14 @@ const signIn = async (data) => {
   return handleApiResponse(apiClient.post('/users/sign_in', data));
 };
 
+/**
+ * Sign out the current user
+ * @returns {Promise}
+ */
+const signOut = async () => {
+  return handleApiResponse(apiClient.delete('/users/sign_out'));
+};
+
 // --- React Query Hooks ---
 
 /**
@@ -40,7 +48,6 @@ export const useSignUpMutation = () => {
     },
     onError: (error) => {
       console.error('Registration failed:', error);
-      toast.error(error.message || 'Registration failed. Please try again.');
     },
   });
 };
@@ -53,14 +60,44 @@ export const useSignInMutation = () => {
 
   return useMutation({
     mutationFn: signIn,
-    onSuccess: (data) => {
-      // Data from signIn is { accessToken, user } or similar
-      setAuth(data.user, data.accessToken);
-      toast.success(`Welcome back, ${data.username || "User"}!`);
+    onSuccess: (response) => {
+      // Structure: { code, status, message, data: { token, user_id, username, roles } };
+      const user = {
+        id: response.user_id,
+        username: response.username,
+        role: response.roles?.[0] || ROLES.USER, 
+        firstName: response.firstName,
+        lastName: response.lastName,
+        avatar_url: response.avatar_url,
+  
+      };
+      const accessToken = response.token;
+      
+      setAuth(user, accessToken);
+      toast.success(`Welcome back, ${response.username || "User"}!`);
     },
     onError: (error) => {
       console.error('Sign in failed:', error);
-      toast.error(error.message || 'Sign in failed. Please check your credentials.');
+    },
+  });
+};
+
+/**
+ * Hook for user sign out.
+ */
+export const useSignOutMutation = () => {
+  const logout = useAuthStore((state) => state.logout);
+
+  return useMutation({
+    mutationFn: signOut,
+    onSuccess: (data) => {
+      logout();
+      toast.success(data.message || 'Signed out successfully.');
+    },
+    onError: (error) => {
+      console.error('Sign out failed:', error);
+      // Force logout on client side even if API fails (optional, but good UX)
+      logout();
     },
   });
 };

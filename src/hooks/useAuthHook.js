@@ -36,7 +36,6 @@ export const useSignInMutation = () => {
     },
     onError: (error) => {
       console.error('Login failed:', error);
-      toast.error(error.message || 'Login failed. Please check your credentials.');
     },
   });
 };
@@ -57,7 +56,6 @@ export const useSignUpMutation = () => {
     },
     onError: (error) => {
       console.error('Registration failed:', error);
-      toast.error(error.message || 'Registration failed. Please try again.');
     },
   });
 };

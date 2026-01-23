@@ -164,7 +164,7 @@ const SignInPage = () => {
         {/* Header with Logo and Language Selector */}
         <div className="absolute top-0 left-0 w-full flex justify-between items-center p-12 z-20">
           
-          <a href="#" className="group flex items-center gap-2">
+          <a href="/" className="group flex items-center gap-2">
             <img src={logo} alt="Gossip Logo" className="h-16 w-auto drop-shadow-md group-hover:scale-105 transition-transform" />
           </a>
 
