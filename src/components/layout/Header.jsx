@@ -1,10 +1,11 @@
-import { Newspaper, Users, Heart, UserPlus, Bell, LogOut, User } from 'lucide-react';
+import { Newspaper, Users, Heart, UserPlus, Bell, LogOut, User, Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../../store/useAuthStore';
 import { useSignOutMutation } from '../../services/auth.service'; // Import the hook
+import { useUserAvatarQuery } from '../../services/user.service';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import logo from '../../assets/logo.png';
 import LanguageSwitcher from '../ui/LanguageSwitcher';
 
@@ -15,6 +16,16 @@ const Header = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   
   const signOutMutation = useSignOutMutation(); // Use the hook
+  
+  // Fetch fresh avatar
+  const { data: avatarData, refetch: refetchAvatar } = useUserAvatarQuery(user?.id);
+
+  // Refetch avatar on navigation
+  useEffect(() => {
+      if (user?.id) {
+          refetchAvatar();
+      }
+  }, [location.pathname, user?.id, refetchAvatar]);
 
   const isActive = (path) => location.pathname === path;
 
@@ -41,6 +52,7 @@ const Header = () => {
       {user && (
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-4">
             {[
+                { path: '/search', icon: Search, title: 'Search' },
                 { path: '/feed', icon: Newspaper, title: 'Posts' },
                 { path: '/follows', icon: Heart, title: 'Follows' },
                 { path: '/friends', icon: Users, title: 'Friends' },
@@ -114,13 +126,15 @@ const Header = () => {
                 onMouseEnter={() => setIsProfileOpen(true)}
                 onMouseLeave={() => setIsProfileOpen(false)}
               >
-                <Link to="/profile" className="block relative">
+                <Link to={`/profile/host/${user.id}`} className="block relative">
                   <motion.div 
                     whileHover={{ scale: 1.05 }}
                     className="h-11 w-11 rounded-full bg-linear-to-tr from-purple-500 to-pink-500 p-[2px] shadow-lg shadow-purple-500/20"
                   >
                     <div className="h-full w-full rounded-full bg-white flex items-center justify-center text-sm font-bold text-purple-600 relative overflow-hidden">
-                      {user.avatar_url ? (
+                      {avatarData?.url ? (
+                        <img src={avatarData.url} alt={user.firstName} className="h-full w-full object-cover" />
+                      ) : user.avatar_url ? (
                         <img src={user.avatar_url} alt={user.firstName} className="h-full w-full object-cover" />
                       ) : (
                         <span>{user.firstName ? user.firstName[0].toUpperCase() : 'U'}</span>
@@ -140,7 +154,7 @@ const Header = () => {
                       className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden p-1.5 flex flex-col gap-1"
                     >
                       <Link 
-                        to="/profile" 
+                        to={`/profile/host/${user.id}`} 
                         className="flex items-center gap-3 px-3 py-2.5 text-sm font-semibold text-slate-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors group"
                       >
                         <User size={18} strokeWidth={2} className="text-slate-400 group-hover:text-purple-600" />

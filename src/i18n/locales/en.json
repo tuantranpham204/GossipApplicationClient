@@ -44,5 +44,12 @@
   "activation_already_message": "This account has already been activated. You can proceed to sign in with your credentials.",
   "resend_activation": "Request New Activation Email",
   "activation_help_text": "Didn't receive the email? Check your spam folder or request a new one.",
-  "back_to_sign_in": "← Back to Sign In"
+  "back_to_sign_in": "← Back to Sign In",
+  "unknown": "Unknown",
+  "single": "Single",
+  "in_relationship": "In a relationship",
+  "married": "Married",
+  "role_user": "User",
+  "role_admin": "Admin",
+  "no_bio": "No bio yet"
 }

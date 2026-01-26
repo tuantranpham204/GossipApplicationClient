@@ -44,5 +44,12 @@
   "activation_already_message": "Tài khoản này đã được kích hoạt. Bạn có thể tiến hành đăng nhập với thông tin của mình.",
   "resend_activation": "Yêu Cầu Email Kích Hoạt Mới",
   "activation_help_text": "Không nhận được email? Kiểm tra thư mục spam hoặc yêu cầu gửi lại.",
-  "back_to_sign_in": "← Quay Lại Đăng Nhập"
+  "back_to_sign_in": "← Quay Lại Đăng Nhập",
+  "unknown": "Không xác định",
+  "single": "Độc thân",
+  "in_relationship": "Đang hẹn hò",
+  "married": "Đã kết hôn",
+  "role_user": "Người dùng",
+  "role_admin": "Quản trị viên",
+  "no_bio": "Chưa có giới thiệu"
 }
