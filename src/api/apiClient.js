@@ -70,7 +70,9 @@ export const handleApiResponse = async (request) => {
     }
 
     // Successful code 200: Return data if present, otherwise true
-    if (apiResponse && apiResponse.code === 200) {
+    if (apiResponse.meta && apiResponse.data && apiResponse.code === 200) {
+      return { data: apiResponse.data, meta: apiResponse.meta };
+    } else if (apiResponse && apiResponse.code === 200) {
       return apiResponse.data !== undefined ? apiResponse.data : true;
     } 
     

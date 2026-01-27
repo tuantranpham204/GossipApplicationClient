@@ -4,13 +4,15 @@ import apiClient, { handleApiResponse } from '../api/apiClient';
 // --- API Functions ---
 
 /**
- * Fetch users, optionally filtered by a search query
+ * Fetch profiles by search query
  * @param {string} query - Search query
+ * @param {number} page - Page number
+ * @param {number} perPage - Records per page
  * @returns {Promise}
  */
-const fetchUsers = async (query = '') => {
-  const params = query ? { search: query } : {};
-  return handleApiResponse(apiClient.get('/users', { params }));
+const fetchProfilesByQuery = async (query = '', page = 1, perPage = 10) => {
+  const params = { q: query, page, per_page: perPage };
+  return handleApiResponse(apiClient.get('/profiles/search', { params }))
 };
 
 /**
@@ -21,6 +23,8 @@ const fetchUsers = async (query = '') => {
 const fetchHostProfile = async (userId) => {
   return handleApiResponse(apiClient.get(`/profiles/host/${userId}`));
 };
+
+
 
 /**
  * Format gender based on the gender value
@@ -47,13 +51,13 @@ const relationship_status = (relationship_status, t) => {
 // --- React Query Hooks ---
 
 /**
- * Hook to fetch users.
+ * Hook to fetch profiles by query.
  * @param {string} query - Search query
  */
-export const useUsersQuery = (query = '') => {
+export const useProfilesByQuery = (query = '') => {
   return useQuery({
-    queryKey: ['users', query],
-    queryFn: () => fetchUsers(query),
+    queryKey: ['profiles', query],
+    queryFn: () => fetchProfilesByQuery(query),
     keepPreviousData: true,
     retry: 1,
   });
@@ -63,11 +67,11 @@ export const useUsersQuery = (query = '') => {
  * Hook to fetch a user's profile.
  * @param {string|number} userId - The ID of the user
  */
-export const useHostProfileQuery = (userId) => {
+export const useHostProfileQuery = (userId, options = {}) => {
   return useQuery({
     queryKey: ['hostProfile', userId],
     queryFn: () => fetchHostProfile(userId),
-    enabled: !!userId,
+    enabled: !!userId && (options.enabled !== false),
     keepPreviousData: true,
   });
 };
