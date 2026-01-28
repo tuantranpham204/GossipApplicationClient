@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useSignOutMutation } from "../../services/auth.service"; // Import the hook
 import { useUserAvatarQuery } from "../../services/user.service";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import logo from "../../assets/logo.png";
@@ -24,6 +24,8 @@ const Header = () => {
   const { user } = useAuthStore();
   const location = useLocation();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  const navigate = useNavigate(); // Initialize navigate
 
   const signOutMutation = useSignOutMutation(); // Use the hook
 
@@ -201,7 +203,11 @@ const Header = () => {
 
                     <button
                       onClick={() => {
-                        signOutMutation.mutate();
+                        signOutMutation.mutate(undefined, {
+                          onSuccess: () => {
+                            navigate("/sign-in");
+                          },
+                        });
                       }}
                       disabled={signOutMutation.isPending}
                       className="flex items-center gap-3 px-3 py-2.5 text-sm font-semibold text-red-500 hover:bg-red-50 rounded-lg transition-colors w-full text-left group disabled:opacity-50"
