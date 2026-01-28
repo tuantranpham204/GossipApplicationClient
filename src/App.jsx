@@ -5,6 +5,8 @@ import SignInPage from './pages/auth/SignInPage';
 import ActivationInstructionsPage from './pages/auth/ActivationInstructionsPage';
 import ActivationStatusPage from './pages/auth/ActivationStatusPage';
 import HomePage from './pages/HomePage';
+import SearchUsersPage from './pages/SearchUsersPage';
+import ProfilePage from './pages/ProfilePage';
 import './App.css'
 
 function App() {
@@ -18,6 +20,9 @@ function App() {
         <Route path="/activation-status" element={<ActivationStatusPage />} />
         
         <Route path="/" element={<HomePage />} />
+        <Route path="/search" element={<SearchUsersPage />} />
+        <Route path="/profile/host/:userId" element={<ProfilePage />} />
+        <Route path="/profile/guest/:userId" element={<ProfilePage />} />
       </Routes>
     </BrowserRouter>
   )
